@@ -1,0 +1,43 @@
+/* Custom CSS for Immune Cell Learning App */
+
+/* Navigation tabs active state */
+.nav-btn {
+    @apply px-3 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all flex items-center gap-1.5 text-slate-400 hover:text-slate-100 hover:bg-slate-700/50;
+}
+
+.active-tab {
+    @apply bg-indigo-600/30 text-indigo-300 border border-indigo-500/40 shadow-sm font-semibold;
+}
+
+/* Category Filter Buttons */
+.filter-btn {
+    @apply px-3 py-1.5 rounded-lg text-xs font-medium transition-all text-slate-400 bg-slate-900/60 border border-slate-700 hover:border-indigo-500/50 hover:text-slate-200;
+}
+
+.active-filter {
+    @apply bg-indigo-600 text-white border-indigo-500 font-semibold shadow-md;
+}
+
+/* Card hover animation */
+.cell-card {
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cell-card:hover {
+    transform: translateY(-4px);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+}

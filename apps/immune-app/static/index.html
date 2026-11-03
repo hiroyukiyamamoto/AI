@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>免疫細胞アカデミー | インタラクティブ学習アプリ</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com/3.4.17" integrity="sha384-igm5BeiBt36UU4gqwWS7imYmelpTsZlQ45FZf+XBn9MuJbn4nQr7yx1yFydocC/K" crossorigin="anonymous"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" integrity="sha384-uTYyvsSSUZeaPhb5RbKlQa0zY/WpX/QHfvg2mczXyBQOpkWPEDy9lczyp+w7SKXu" crossorigin="anonymous"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            900: '#0c4a6e',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Hiragino Sans"', '"Hiragino Kaku Gothic ProN"', '"Meiryo"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col antialiased">
+
+    <!-- Header / Navbar -->
+    <header class="bg-slate-800/90 backdrop-blur border-b border-slate-700 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('overview')">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-500 via-purple-500 to-indigo-500 flex items-center justify-center shadow-lg shadow-purple-500/30">
+                        <i data-lucide="shield-check" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-lg sm:text-xl text-white tracking-tight flex items-center gap-2">
+                            免疫細胞アカデミー
+                            <span class="text-xs font-normal px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">学習Webアプリ</span>
+                        </h1>
+                        <p class="text-xs text-slate-400 hidden sm:block">人体を守る最強の防衛システムを体験・攻略しよう！</p>
+                    </div>
+                </div>
+
+                <!-- Navigation Tabs -->
+                <nav class="flex space-x-1 sm:space-x-2">
+                    <button onclick="switchTab('overview')" id="tab-btn-overview" class="nav-btn active-tab">
+                        <i data-lucide="network" class="w-4 h-4"></i>
+                        <span class="hidden md:inline">全体マップ</span>
+                    </button>
+                    <button onclick="switchTab('encyclopedia')" id="tab-btn-encyclopedia" class="nav-btn">
+                        <i data-lucide="book-open" class="w-4 h-4"></i>
+                        <span class="hidden md:inline">細胞図鑑</span>
+                    </button>
+                    <button onclick="switchTab('simulator')" id="tab-btn-simulator" class="nav-btn">
+                        <i data-lucide="swords" class="w-4 h-4"></i>
+                        <span class="hidden md:inline">防衛バトル</span>
+                    </button>
+                    <button onclick="switchTab('quiz')" id="tab-btn-quiz" class="nav-btn">
+                        <i data-lucide="help-circle" class="w-4 h-4"></i>
+                        <span class="hidden md:inline">理解度クイズ</span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- TAB 1: 全体マップ (OVERVIEW) -->
+        <section id="tab-overview" class="tab-content space-y-8">
+            <!-- Hero Banner -->
+            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-800 via-indigo-950 to-slate-900 border border-indigo-500/30 p-6 sm:p-10 shadow-2xl">
+                <div class="absolute -right-10 -bottom-10 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="relative z-10 max-w-3xl">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-semibold mb-4">
+                        <i data-lucide="zap" class="w-3.5 h-3.5"></i> 人体の防衛システムとは？
+                    </div>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-white leading-tight mb-4">
+                        2段階の防衛ライン：<span class="bg-clip-text text-transparent bg-gradient-to-r from-rose-400 via-indigo-300 to-sky-400">「自然免疫」</span> と <span class="bg-clip-text text-transparent bg-gradient-to-r from-sky-300 via-purple-300 to-pink-400">「獲得免疫」</span>
+                    </h2>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
+                        私たちの体には、病原体（ウイルスや細菌）の侵入を24時間監視し、即座に撃退する二重の防御システムが備わっています。<br>
+                        生まれつき備わったスピード勝負の「自然免疫」と、敵の特徴を学習して狙い撃つ「獲得免疫」の連携メカニズムを学んでみましょう。
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="switchTab('encyclopedia')" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold text-sm shadow-lg shadow-indigo-500/25 transition-all flex items-center gap-2">
+                            <i data-lucide="book-open" class="w-4 h-4"></i> 細胞図鑑を見る
+                        </button>
+                        <button onclick="switchTab('simulator')" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 font-semibold text-sm transition-all flex items-center gap-2">
+                            <i data-lucide="gamepad-2" class="w-4 h-4"></i> シミュレーターに挑戦
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flowchart Visual -->
+            <div class="bg-slate-800/60 rounded-2xl border border-slate-700/80 p-6 sm:p-8 backdrop-blur">
+                <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                    <i data-lucide="git-merge" class="w-5 h-5 text-indigo-400"></i>
+                    免疫反応のステップ別ストーリー
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
+                    <!-- Step 1 -->
+                    <div class="bg-slate-900/80 border border-slate-700 rounded-xl p-5 hover:border-rose-500/50 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs font-bold px-2.5 py-1 rounded-md bg-rose-500/20 text-rose-300 border border-rose-500/30">STEP 1</span>
+                                <span class="text-2xl">🦠</span>
+                            </div>
+                            <h4 class="font-bold text-base text-white mb-2">敵の侵入 & 自然免疫</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                細菌やウイルスが侵入！<br>
+                                <strong class="text-rose-400">好中球</strong> や <strong class="text-rose-400">マクロファージ</strong>、<strong class="text-emerald-400">NK細胞</strong> が真っ先に駆けつけ、敵を貪食・撃破します。
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-500 flex justify-between">
+                            <span>応答スピード: 即時〜数時間</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="bg-slate-900/80 border border-slate-700 rounded-xl p-5 hover:border-sky-500/50 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs font-bold px-2.5 py-1 rounded-md bg-sky-500/20 text-sky-300 border border-sky-500/30">STEP 2</span>
+                                <span class="text-2xl">📡</span>
+                            </div>
+                            <h4 class="font-bold text-base text-white mb-2">抗原提示（バトンタッチ）</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                敵を食べた <strong class="text-sky-400">樹状細胞</strong> が敵の断片（抗原）を持ってリンパ節へ移動。<br>
+                                <strong class="text-indigo-400">ヘルパーT細胞</strong> に「こんな敵が来ました！」と報告します。
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-500 flex justify-between">
+                            <span>応答スピード: 数時間〜1日</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="bg-slate-900/80 border border-slate-700 rounded-xl p-5 hover:border-purple-500/50 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs font-bold px-2.5 py-1 rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/30">STEP 3</span>
+                                <span class="text-2xl">⚔️</span>
+                            </div>
+                            <h4 class="font-bold text-base text-white mb-2">獲得免疫の本格攻撃</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                <strong class="text-indigo-400">ヘルパーT細胞</strong> の指令で：<br>
+                                • <strong class="text-red-400">キラーT細胞</strong> が感染細胞を破壊<br>
+                                • <strong class="text-blue-400">B細胞</strong> が特効薬「抗体」を大量射撃！
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-500 flex justify-between">
+                            <span>応答スピード: 数日〜数週間</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="bg-slate-900/80 border border-slate-700 rounded-xl p-5 hover:border-emerald-500/50 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs font-bold px-2.5 py-1 rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">STEP 4</span>
+                                <span class="text-2xl">🧠</span>
+                            </div>
+                            <h4 class="font-bold text-base text-white mb-2">記憶 & 鎮圧（回復）</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                勝利後、<strong class="text-emerald-400">制御性T細胞（Treg）</strong> が免疫の暴走をストップ。<br>
+                                一部の細胞は <strong class="text-indigo-300">メモリー細胞</strong> になり再侵入に備えます。
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-500 flex justify-between">
+                            <span>応答スピード: 収束 & 永続記憶</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fast Comparison Table -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Innate Card -->
+                <div class="bg-gradient-to-br from-rose-950/40 via-slate-800 to-slate-900 border border-rose-500/30 rounded-2xl p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="text-lg font-bold text-rose-300 flex items-center gap-2">
+                            <i data-lucide="shield" class="w-5 h-5 text-rose-400"></i> 自然免疫 (Innate Immunity)
+                        </h4>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">即効型・全自動</span>
+                    </div>
+                    <ul class="space-y-3 text-xs sm:text-sm text-slate-300">
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-rose-400 shrink-0 mt-0.5"></i>
+                            <span><strong>特徴：</strong> 生まれつき備わっており、異物が侵入したら数分〜数時間で即座に反応。</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-rose-400 shrink-0 mt-0.5"></i>
+                            <span><strong>対象：</strong> 幅広い病原体（パターン認識レセプターで判断）。</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-rose-400 shrink-0 mt-0.5"></i>
+                            <span><strong>主な主役：</strong> 好中球、マクロファージ、樹状細胞、NK細胞、肥満細胞</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Adaptive Card -->
+                <div class="bg-gradient-to-br from-indigo-950/40 via-slate-800 to-slate-900 border border-indigo-500/30 rounded-2xl p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="text-lg font-bold text-indigo-300 flex items-center gap-2">
+                            <i data-lucide="target" class="w-5 h-5 text-indigo-400"></i> 獲得免疫 (Adaptive Immunity)
+                        </h4>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">学習型・特異的</span>
+                    </div>
+                    <ul class="space-y-3 text-xs sm:text-sm text-slate-300">
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-indigo-400 shrink-0 mt-0.5"></i>
+                            <span><strong>特徴：</strong> 敵の情報を取り込んで学習。数日かかるが、敵に完全一致する強力な武器を作成。</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-indigo-400 shrink-0 mt-0.5"></i>
+                            <span><strong>特殊能力：</strong> 『免疫記憶』を持ち、2回目以降の侵入時は超高速で撃退。</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-indigo-400 shrink-0 mt-0.5"></i>
+                            <span><strong>主な主役：</strong> ヘルパーT細胞、キラーT細胞、B細胞、制御性T細胞（Treg）</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: 細胞図鑑 (ENCYCLOPEDIA) -->
+        <section id="tab-encyclopedia" class="tab-content hidden space-y-6">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-slate-800/80 p-6 rounded-2xl border border-slate-700">
+                <div>
+                    <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                        <i data-lucide="book-open" class="w-6 h-6 text-indigo-400"></i> 免疫細胞図鑑
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-400 mt-1">
+                        体の中で働く主役細胞たちの特徴、必殺技、ステータスをチェックしましょう。
+                    </p>
+                </div>
+                <!-- Filter buttons -->
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="filterCells('all')" id="filter-all" class="filter-btn active-filter">すべて</button>
+                    <button onclick="filterCells('innate')" id="filter-innate" class="filter-btn">自然免疫</button>
+                    <button onclick="filterCells('adaptive')" id="filter-adaptive" class="filter-btn">獲得免疫</button>
+                    <button onclick="filterCells('bridge')" id="filter-bridge" class="filter-btn">架け橋</button>
+                </div>
+            </div>
+
+            <!-- Grid of Cell Cards -->
+            <div id="cell-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamic Content Loaded via JS -->
+            </div>
+        </section>
+
+        <!-- TAB 3: 防衛バトル (SIMULATOR) -->
+        <section id="tab-simulator" class="tab-content hidden space-y-6">
+            <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                        <i data-lucide="swords" class="w-6 h-6 text-rose-400"></i> 防衛バトルシミュレーター
+                    </h2>
+                    <span id="sim-scenario-badge" class="text-xs px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 font-semibold">
+                        Stage 選択中
+                    </span>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-300">
+                    体内への病原体侵入が発生！状況に合わせて最も効果的な免疫細胞を選択し、体内防衛作戦を成功させてください！
+                </p>
+
+                <!-- Scenario Selector -->
+                <div id="scenario-selector" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                    <!-- Loaded dynamically -->
+                </div>
+            </div>
+
+            <!-- Simulator Active Battle Area -->
+            <div id="sim-active-area" class="hidden bg-slate-900 border border-slate-700 rounded-2xl p-6 shadow-2xl space-y-6">
+                <!-- Scenario Header -->
+                <div class="border-b border-slate-800 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                        <span id="sim-stage-num" class="text-xs font-bold px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300">STAGE 1</span>
+                        <h3 id="sim-stage-title" class="text-xl font-bold text-white mt-1">ステージタイトル</h3>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs text-slate-400">進捗:</span>
+                        <div class="w-32 bg-slate-800 rounded-full h-3 overflow-hidden border border-slate-700">
+                            <div id="sim-progress-bar" class="bg-gradient-to-r from-indigo-500 to-rose-500 h-full w-0 transition-all duration-300"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scenario Description -->
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/60">
+                    <p id="sim-stage-desc" class="text-xs sm:text-sm text-slate-300 leading-relaxed"></p>
+                </div>
+
+                <!-- Question / Tactical Prompt -->
+                <div class="bg-slate-800/90 border border-indigo-500/30 rounded-xl p-5 shadow-lg">
+                    <h4 id="sim-question-text" class="text-sm sm:text-base font-bold text-indigo-200 mb-4"></h4>
+
+                    <!-- Options -->
+                    <div id="sim-options-container" class="space-y-3">
+                        <!-- Dynamic choices -->
+                    </div>
+                </div>
+
+                <!-- Feedback area -->
+                <div id="sim-feedback-box" class="hidden p-4 rounded-xl text-sm leading-relaxed border"></div>
+
+                <!-- Control Footer -->
+                <div class="flex justify-between items-center pt-2">
+                    <button onclick="resetSimulator()" class="text-xs text-slate-400 hover:text-slate-200 underline">
+                        ステージ選択に戻る
+                    </button>
+                    <button id="sim-next-btn" onclick="nextSimStep()" class="hidden px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-lg transition-all flex items-center gap-2">
+                        <span>次のステップへ</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: 理解度クイズ (QUIZ) -->
+        <section id="tab-quiz" class="tab-content hidden space-y-6">
+            <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                            <i data-lucide="help-circle" class="w-6 h-6 text-purple-400"></i> 免疫マスター理解度クイズ
+                        </h2>
+                        <p class="text-xs sm:text-sm text-slate-400 mt-1">
+                            全10問のクイズであなたの免疫知識を試しましょう！
+                        </p>
+                    </div>
+                    <button onclick="startQuiz()" id="quiz-start-btn" class="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white font-bold text-sm shadow-lg shadow-purple-500/25 transition-all flex items-center gap-2">
+                        <i data-lucide="play" class="w-4 h-4"></i> クイズに挑戦する
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quiz Main Box -->
+            <div id="quiz-container" class="hidden bg-slate-900 border border-slate-700 rounded-2xl p-6 shadow-2xl space-y-6">
+                <!-- Quiz Header -->
+                <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                    <span id="quiz-progress-text" class="text-xs font-bold px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                        第 1 / 10 問
+                    </span>
+                    <div class="flex items-center gap-2 text-xs text-slate-400">
+                        <span>スコア:</span>
+                        <span id="quiz-score-badge" class="font-bold text-emerald-400 text-sm">0 点</span>
+                    </div>
+                </div>
+
+                <!-- Quiz Question -->
+                <h3 id="quiz-question-title" class="text-base sm:text-lg font-bold text-white leading-snug"></h3>
+
+                <!-- Quiz Options -->
+                <div id="quiz-choices" class="space-y-3">
+                    <!-- Dynamic choices -->
+                </div>
+
+                <!-- Quiz Explanation -->
+                <div id="quiz-explanation" class="hidden p-4 rounded-xl text-xs sm:text-sm border leading-relaxed"></div>
+
+                <!-- Quiz Next Button -->
+                <div class="flex justify-end pt-2">
+                    <button id="quiz-next-btn" onclick="nextQuizQuestion()" class="hidden px-6 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm shadow-lg transition-all flex items-center gap-2">
+                        <span>次の問題へ</span> <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quiz Score Result Modal/Card -->
+            <div id="quiz-result-card" class="hidden bg-gradient-to-b from-slate-800 to-slate-900 border border-purple-500/40 rounded-3xl p-8 text-center shadow-2xl space-y-6">
+                <div class="w-20 h-20 mx-auto rounded-full bg-purple-500/20 border-2 border-purple-500 flex items-center justify-center text-4xl shadow-inner">
+                    🏆
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-2">クイズ完了！</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm">あなたの獲得スコアは...</p>
+                    <div id="quiz-final-score" class="text-4xl sm:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-300 my-3">
+                        80 / 100 点
+                    </div>
+                    <div id="quiz-rank-badge" class="inline-block px-4 py-1.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-bold text-sm">
+                        ランク: 司令塔ヘルパーT級
+                    </div>
+                </div>
+                <p id="quiz-rank-comment" class="text-slate-300 text-xs sm:text-sm max-w-md mx-auto leading-relaxed">
+                    素晴らしい免疫知識です！獲得免疫の仕組みもバッチリ把握できています。
+                </p>
+                <div class="pt-4 flex justify-center gap-4">
+                    <button onclick="startQuiz()" class="px-6 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm shadow-lg transition-all flex items-center gap-2">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i> もう一度挑戦
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Cell Detail Modal -->
+    <div id="cell-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-800 border border-slate-700 rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl p-6 relative animate-in fade-in zoom-in duration-200">
+            <button onclick="closeCellModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-700/50 hover:bg-slate-700 rounded-full p-2">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div id="modal-content">
+                <!-- Loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-slate-800 py-6 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>免疫細胞アカデミー | Powered by Python FastAPI & Google Cloud Run</p>
+        </div>
+    </footer>
+
+    <!-- App JS -->
+    <script src="/static/app.js"></script>
+</body>
+</html>
